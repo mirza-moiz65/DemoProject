@@ -23,10 +23,10 @@ class ChatRoomsController < ApplicationController
   # POST /chat_rooms or /chat_rooms.json
   def create
     @chat_room = current_user.chat_rooms.build(chat_room_params)
-
     respond_to do |format|
       if @chat_room.save
-        format.html { redirect_to @chat_room, notice: "Chat room was successfully created." }
+        current_user.chat_rooms << @chat_room
+        format.html { redirect_to user_chat_room_path(id: @chat_room.id), notice: "Chat room was successfully created." }
         format.json { render :show, status: :created, location: @chat_room }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class ChatRoomsController < ApplicationController
   def update
     respond_to do |format|
       if @chat_room.update(chat_room_params)
-        format.html { redirect_to @chat_room, notice: "Chat room was successfully updated." }
+        format.html { redirect_to user_chat_rooms_path, notice: "Chat room was successfully updated." }
         format.json { render :show, status: :ok, location: @chat_room }
       else
         format.html { render :edit, status: :unprocessable_entity }

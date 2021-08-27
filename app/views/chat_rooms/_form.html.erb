@@ -1,4 +1,4 @@
-<%= form_with(model: [@user, chat_room], local: true) do |form| %>
+<%= form_for chat_room, url: url do |form| %>
   <% if chat_room.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(chat_room.errors.count, "error") %> prohibited this chat_room from being saved:</h2>

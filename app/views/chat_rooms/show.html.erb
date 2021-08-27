@@ -3,6 +3,28 @@
 <p>
   <strong>Name:</strong>
   <%= @chat_room.name %>
+
+  </br>
+  <strong>Users:</strong>
+  <% @chat_room.users.each do |user| %>
+    </br>
+    <%= user.email  %> 
+    <% if current_user.id == user.id %>
+      <%= '(You)' %>
+    <% end %>
+  <% end %>
+  </br>
+  <strong>Messages:</strong>
+  <% @chat_room.messages.each do |message| %>
+    </br>
+    <% if message.user.id == current_user.id %>
+      <%= 'You: ' %>
+    <% else %>
+      <%= message.user.email  %>
+      <%= ': ' %>
+    <% end %>
+    <%= message.body  %> 
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_user_chat_room_path(@chat_room) %> |
